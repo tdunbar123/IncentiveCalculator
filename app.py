@@ -10,6 +10,20 @@ num_input = st.number_input(
     format="%.2f"
 )
 
+# Calculate incentive cap
+cap = 25000
+if num_input < 2500000:
+    cap = 7500
+elif 2500000 <= num_input <= 5000000:
+    cap = 11000
+elif 5000000 < num_input <= 10000000:
+    cap = 13500
+elif 10000000 < num_input <= 15000000:
+    cap = 16000
+elif 15000000 < num_input <= 20000000:
+    cap = 21000
+
+
 # 2. Select option (3 choices)
 option_2 = st.selectbox(
     "Goal Attainment",
@@ -44,4 +58,5 @@ map5 = {"Yes": 1.5, "No": 1}
 if st.button("Calculate"):
     final_value = num_input * map2[option_2] * map3[option_3] * map4[option_4] * map5[option_5]
     st.text("Incentive Value:")
-    st.write('$' + final_value.__format__(',.2f'))
+    incentive = min(cap, final_value)
+    st.write('$' + incentive.__format__(',.2f'))
